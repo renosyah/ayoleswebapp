@@ -1,0 +1,43 @@
+<template>
+    <div class="LoadingComponent">
+        <!-- Loading -->
+        <div class="preloader-background"  v-bind:style="{ display: loading_display }">
+            <div class="preloader-wrapper big active">
+                <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div><div class="gap-patch">
+                    <div class="circle"></div>
+                </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+    name : 'LoadingComponent',
+    props : ['loading_display']
+}
+</script>
+
+<style scoped>
+
+.preloader-background {
+	display: none;
+	align-items: center;
+	justify-content: center;
+	background-color: #ffffff;
+    opacity:0.5;
+	position: fixed;
+	z-index: 100;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;	
+}
+
+</style>
