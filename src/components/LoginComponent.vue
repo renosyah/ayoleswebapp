@@ -22,12 +22,13 @@
                 </div> 
             </div>
              <div class="container col s3"></div>
-            <p class="header center white-text"><a href="#" v-on:click="doResetPassword" class="header center white-text">Forgot Password?</a> </p>
+            <p class="header center white-text"><a v-on:click="doResetPassword" class="header center white-text">Forgot Password?</a> </p>
         </div>
 
         <ModalMessageComponent ref="error_modal" v-bind="content_error_login"/>
         <ModalMessageComponent ref="reset_password_modal" v-bind="content_reset_password"/>
-        <LoadingComponent v-bind:loading_display="getLoadingDisplay" />
+
+        <div v-if="is_loading"> <LoadingComponent /> </div>
     </div>
 </template>
 
@@ -48,26 +49,21 @@ export default {
             password : '',
             is_loading : false,
             content_error_login : {
-                id : "modal_1",
                 title : "Login Failed",
                 message : "Invalid email or password!"
             },
             content_reset_password : {
-                id : "modal_2",
                 title : "Forgot Password",
                 message : "Unfortunately we cannot reset the password on your account, please create a new account!"
             }
-        }
-    },
-    computed : {
-        getLoadingDisplay(){
-            return this.is_loading ? "flex" : "none"
         }
     },
     methods : {
         doLogin(){
 
             this.is_loading = true
+
+            // request api graphql with apolo
             this.$apollo.query({
                 query : require('../graphql/login.gql'),
                 variables : {
@@ -76,12 +72,25 @@ export default {
                 }
                 }).then(result => {
                     
+                    // save data student
+                    const parsed = JSON.stringify(result.data.student_login);
+                    localStorage.setItem('student_session', parsed);
+
+                    // dismiss loading
                     this.is_loading = false
                     console.log(result)
+
+                    this.$router.push({name: "Dashboard"})
+
                 }).catch(error => {
-                     this.$refs.error_modal.showModal()
-                     this.is_loading = false
+
+                    // show modal reset password
+                    this.$refs.error_modal.showModal()
+
+                    // dismiss loading
+                    this.is_loading = false
                     console.log(error)
+
                 })
             
             this.email = ''
@@ -95,6 +104,11 @@ export default {
 </script>
 
 <style scoped>
+
+a {
+    cursor:pointer;
+}
+
 #login_modal h4 {
     color: black;
 }

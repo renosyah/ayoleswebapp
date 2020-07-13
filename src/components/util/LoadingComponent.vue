@@ -1,7 +1,7 @@
 <template>
     <div class="LoadingComponent">
         <!-- Loading -->
-        <div class="preloader-background"  v-bind:style="{ display: loading_display }">
+        <div class="preloader-background">
             <div class="preloader-wrapper big active">
                 <div class="spinner-layer spinner-blue-only">
                 <div class="circle-clipper left">
@@ -19,15 +19,14 @@
 
 <script>
 export default {
-    name : 'LoadingComponent',
-    props : ['loading_display']
+    name : 'LoadingComponent'
 }
 </script>
 
 <style scoped>
 
 .preloader-background {
-	display: none;
+    display: flex;
 	align-items: center;
 	justify-content: center;
 	background-color: #ffffff;

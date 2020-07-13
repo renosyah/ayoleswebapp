@@ -9,9 +9,9 @@
             </div>
             <br>
             <div class="row center">
-                <div class="container col s3"></div>
-                <a href="/login" id="download-button" class="btn-large col s6 waves-effect waves-light green">Login With Email</a>
-                <div class="container col s3"></div>
+                <div class="container col s1 m2 l3"></div>
+                <a href="/login" id="download-button" class="btn-large col s10 m8 l6 waves-effect waves-light green">Login With Email</a>
+                <div class="container col s1 m2 l3"></div>
             </div>
            
             <p class="header center white-text">New Student? <a href="/register" class="header center white-text"> <b>Sign Up</b></a> </p>

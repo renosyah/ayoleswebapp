@@ -2,25 +2,31 @@
     <div class="ModalMessageComponent">
 
         <!---- each modal MUST have unique id html tag ---->
-        <div v-bind:id="id" class="modal">
+        <div v-bind:id="id" class="card modal">
             <div class="modal-content">
-            <h4>{{ title }}</h4>
+            <span class="card-title black-text">{{ title }}</span>
             <p> {{ message }} </p>
             </div>
-            <div class="modal-footer">
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+            <div class="center card-action modal-footer">
+            <a class="modal-close waves-effect waves-green btn-flat">Close</a>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import { uuid } from 'vue-uuid';
+
 export default {
     name : 'ModalMessageComponent',
     props : {
-        id : String,
         title : String,
         message : String
+    },
+    data(){
+        return {
+            id : uuid.v4()
+        }
     },
     mounted : function(){
         window.$('.modal').modal();

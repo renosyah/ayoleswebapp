@@ -1,0 +1,15 @@
+query categoryList($search_by: String!,$search_value:String!,$order_by:String!,$order_dir:String!,$offset:Int!,$limit:Int!){
+		category_list(
+			search_by:$search_by,
+			search_value:$search_value,
+			order_by:$order_by,
+			order_dir:$order_dir,
+			offset:$offset,
+			limit:$limit
+		)
+		{
+			id,
+			name,
+			image_url
+		 }
+}
