@@ -11,7 +11,7 @@ Open here [Lets Course App](https://ayoleswebapp-renosyah.herokuapp.com)
 
 * Landing, Login And Register
 
-![GitHub Logo](/img/landing.png) ![GitHub Logo](/img/login.png) ![GitHub Logo](/img/register.png)
+![GitHub Logo](/img/index.png) ![GitHub Logo](/img/login.png) ![GitHub Logo](/img/register.png)
 
 
 
