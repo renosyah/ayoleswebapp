@@ -4,7 +4,7 @@ ayoles is a simple web aplication for online course app use Vue.js
 
 ## Web App
 
-Open here [Lets Course App](https://renosyah.github.io/ayoleswebapp/)
+Open here [Lets Course App](https://ayoleswebapp-renosyah.herokuapp.com)
 
 ## Overview
 
