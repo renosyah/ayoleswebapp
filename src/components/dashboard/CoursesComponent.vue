@@ -2,65 +2,44 @@
     <div class="CoursesComponent">
         <div v-show="status.error || !status.loading && courses.length == 0">
             <div class="container">
-                <br><br>
-                <div class="row">
-                    <div class="col s12 m4 "></div>
-                    <div class="col s12 m4 ">
-                        <div class="icon-block ">
-                            <h2 class="center "><img src="notfound.png " /></h2>
-                            <div class="row center">
-                                <h5 class="header col s12 light black-text">No Result Found</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col s12 m4 "></div>
-                </div>
-                <br><br>
-            </div>
-        </div>
-        <div v-show=" !status.error  && courses.length > 0"> 
-        <div class="row">
-                <div class="col s12 m6 l4" v-for="course in courses" v-bind:key="course.id">
-                    <div class="card">
-                        <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" width="180" height="150" v-bind:src="course.image_url">
-                        </div>
-                        <div class="card-content">
-                            <span class="card-title activator grey-text text-darken-4">{{ course.course_name }}<i class="material-icons right">more_vert</i></span>
-                            <div class="row">
-                                <div class="input-field col s12 m12 l12">
-                                    <button class="btn-small waves-effect waves-light green">Detail</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-reveal">
-                            <span class="card-title grey-text text-darken-4">{{ course.course_name }}<i class="material-icons right">close</i></span>
-                            <p v-for="detail in course.course_details" v-bind:key="detail.id"> {{ detail.overview_text }} </p>
-                        </div>
+                <div class="icon-block ">
+                    <h2 class="center "><img src="notfound.png " /></h2>
+                    <div class="row center">
+                        <h5 class="header col s12 light black-text">No Result Found</h5>
                     </div>
                 </div>
             </div>
         </div>
+
+
+        <div class="center" v-show=" !status.error  && courses.length > 0"> 
+            <div class="row">
+                <div v-for="course in courses" v-bind:key="course.id">
+                    <div class="center col s6 m6 l2">
+                        <a v-on:click="onCourseClick(course)">
+                            <img class="z-depth-2" id="course-image" width="180" height="150" v-bind:src="course.image_url" />
+                        </a>
+                        <h6 class="center grey-text"> {{ course.course_name }} </h6>
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div id="loading-layout">
             <div class="container">    
-                <div class="row">
-                    <div class="col s12 m4 "></div>
-                    <div class="col s12 m4 ">
-                        <div class="center" v-show="status.loading">
-                            <div class="preloader-wrapper big active">
-                                <div class="spinner-layer spinner-blue-only">
-                                <div class="circle-clipper left">
-                                    <div class="circle"></div>
-                                </div><div class="gap-patch">
-                                    <div class="circle"></div>
-                                </div><div class="circle-clipper right">
-                                    <div class="circle"></div>
-                                </div>
-                                </div>
-                            </div>
+                <div class="center" v-show="status.loading">
+                    <div class="preloader-wrapper big active">
+                        <div class="spinner-layer spinner-blue-only">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div><div class="gap-patch">
+                            <div class="circle"></div>
+                        </div><div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
                         </div>
                     </div>
-                    <div class="col s12 m4 "></div>
                 </div>
             </div>
         </div>
@@ -70,9 +49,6 @@
 <script>
 export default {
     name : 'CoursesComponent',
-    props : {
-        courses_query : Object
-    },
     data() {
         return {
             courses : [],
@@ -106,9 +82,12 @@ export default {
         this.scroll()
     },
     methods : {
+        onCourseClick(course){
+            this.$emit('on-course-click',course)
+        },
         scroll () {
             window.onscroll = () => {
-                this.scrolled_to_bottom = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) + window.innerHeight === document.documentElement.offsetHeight
+                this.scrolled_to_bottom = this.courses.length > 0 && Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) + window.innerHeight === document.documentElement.offsetHeight
             }
         },
         getCourseWithFilter(category_id,teacher_id,search_value){
@@ -152,7 +131,21 @@ export default {
 
 <style scoped>
 #loading-layout {
-    margin-top: 100px;
-    height: 200px
+    margin-top: 50px;
+    height: 100px
 }
+
+a {
+    cursor: pointer;
+}
+
+#course-image {
+    border-radius: 25px;
+}
+
+.CoursesComponent{
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
 </style>

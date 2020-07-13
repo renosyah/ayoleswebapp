@@ -17,7 +17,7 @@ Open here [Lets Course App](https://ayoleswebapp-renosyah.herokuapp.com)
 
 * Home
 
-![GitHub Logo](/img/home.png) ![GitHub Logo](/img/home_mobile.png)
+![GitHub Logo](/img/home_responsive.png)
 
 
 

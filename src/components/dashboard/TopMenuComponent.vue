@@ -1,14 +1,14 @@
 <template>
-    <div class="SideMenu">
+    <div class="TopMenu">
         <div id="search-form" class="nav-wrapper card">
             <div class="input-field grey-text">
-                <input id="search" v-model="category_query.search_value" v-on:keyup="onSearchTyping" placeholder="Search Course.." type="search">
+                <input id="search" v-model="category_query.search_value" v-on:keyup="onSearchTyping" :placeholder="hint_search" type="search">
                 <label class="label-icon" for="search"><i class="material-icons blue-text">search</i></label>
             </div>
             
         </div> 
 
-        <div class="card-panel">
+        <div id="category-chooser">
         
         <div class="center">
                 <div class="preloader-wrapper small active" v-show="categories.length == 0">
@@ -25,17 +25,15 @@
             </div>
 
             <a v-show="categories.length > 0">
-                <a id="category-radio">
-                    <label>
-                        <input checked class="with-gap" name="group_category" type="radio" v-on:click="onCategoryClick('')" />
+                <a>
+                    <div v-bind:class="[ {'green':selected_chip == 'NO_CATEGORY'},{'white-text':selected_chip == 'NO_CATEGORY'} ]" id="category-chip" class="chip center" v-on:click="onCategoryClick('');selected_chip = 'NO_CATEGORY'">
                         <span>No Category</span>
-                    </label>
+                    </div>
                 </a>
-                <a id="category-radio" v-for="category in categories" v-bind:key="category.id">
-                    <label>
-                        <input class="with-gap" name="group_category" type="radio" v-on:click="onCategoryClick(category.id)" />
+                <a v-for="category in categories" v-bind:key="category.id">
+                    <div v-bind:class="[ {'green':selected_chip == category.id},{'white-text':selected_chip == category.id} ]" id="category-chip" class="chip center" v-on:click="onCategoryClick(category.id);selected_chip = category.id">
                         <span>{{ category.name }}</span>
-                    </label>
+                    </div>
                 </a>
             </a>
 
@@ -45,7 +43,10 @@
 
 <script>
 export default {
-    name : 'SideMenu',
+    name : 'TopMenu',
+    props : {
+        hint_search : String
+    },
     data(){
         return {
             categories : [],
@@ -61,7 +62,8 @@ export default {
                 category_id : '',
                 search_value : '',
                 teacher_id : ''
-            }
+            },
+            selected_chip : 'NO_CATEGORY'
 
         }
     },
@@ -107,7 +109,26 @@ a {
 }
 
 #search-form {
+    border-radius: 15px;
     padding: 1px;
 }
 
+.TopMenu {
+    margin-left:30px;
+    margin-right: 30px; 
+}
+
+#category-chooser {
+    margin-bottom: 50px;
+    margin-top: 25px;
+}
+
+#category-chip:hover {
+    cursor: pointer;
+}
+
+#category-chip {
+    font-size: 15px;
+
+}
 </style>

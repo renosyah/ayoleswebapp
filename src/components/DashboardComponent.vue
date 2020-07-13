@@ -2,24 +2,21 @@
   <div class="DashboardComponent">
       <!--- header ---> 
       <HeaderComponent v-bind:student="student" @onTabSelected="changeContent"/>
-        <div v-if="content == 'home'">
-          <div class="row">
-            <div class="col s12 m4 l2">
-              <SideMenuComponent ref="side_menu" v-on:on-category-click="filterCourse"  v-on:on-search-typing="filterCourse" />
-            </div>
-            <div class="col s12 m8 l10">
-              <CoursesComponent ref="courses_list" />
-            </div>
-           </div>   
+        <div v-if="content == 'home'" v-bind:key="'home'">
+          
+              <TopMenuMenuComponent v-bind:hint_search="'Search Course....'" v-on:on-category-click="filterCourse"  v-on:on-search-typing="filterCourse" />
+              <CoursesComponent ref="courses_list" v-on:on-course-click="onCourseClick"/>
+          
           </div>
 
-          <div v-else-if="content == 'class'">
-            <!--- class content --->
-            <p>Class</p>
+          <div v-else-if="content == 'class'" v-bind:key="'class'">
+
+            <TopMenuMenuComponent v-bind:hint_search="'Search Class....'"/>
+
           </div>
           
           
-          <div v-else-if="content == 'profile'">
+          <div v-else-if="content == 'profile'" v-bind:key="'profile'">
             <!--- profile content --->
             <p>Profile</p>
           </div>
@@ -28,14 +25,14 @@
 <script>
 
 import HeaderComponent from './dashboard/HeaderComponent.vue'
-import SideMenuComponent from './dashboard/SideMenuComponent.vue'
+import TopMenuMenuComponent from './dashboard/TopMenuComponent.vue'
 import CoursesComponent from './dashboard/CoursesComponent.vue'
 
 export default {
   name: 'Dashboard',
   components : {
       HeaderComponent,
-      SideMenuComponent,
+      TopMenuMenuComponent,
       CoursesComponent
   },
   data(){
@@ -68,7 +65,10 @@ export default {
     },
     changeContent(pageName){
       this.content = pageName
-    }
+    },
+    onCourseClick(course){
+        console.log(course)
+    },
   }
 }
 </script>
