@@ -25,8 +25,8 @@
             <p class="header center white-text"><a v-on:click="doResetPassword" class="header center white-text">Forgot Password?</a> </p>
         </div>
 
-        <ModalMessageComponent ref="error_modal" v-bind="content_error_login"/>
-        <ModalMessageComponent ref="reset_password_modal" v-bind="content_reset_password"/>
+        <ModalMessageComponent ref="error_modal" v-bind="{ title : 'Login Failed', message : 'Invalid email or password!' }"/>
+        <ModalMessageComponent ref="reset_password_modal" v-bind="{ title : 'Forgot Password',message : 'Unfortunately we cannot reset the password on your account, please create a new account!'}"/>
 
         <div v-if="is_loading"> <LoadingComponent /> </div>
     </div>
@@ -47,15 +47,7 @@ export default {
         return {
             email : '',
             password : '',
-            is_loading : false,
-            content_error_login : {
-                title : "Login Failed",
-                message : "Invalid email or password!"
-            },
-            content_reset_password : {
-                title : "Forgot Password",
-                message : "Unfortunately we cannot reset the password on your account, please create a new account!"
-            }
+            is_loading : false
         }
     },
     methods : {

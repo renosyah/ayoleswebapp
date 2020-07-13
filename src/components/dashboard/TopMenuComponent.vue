@@ -119,8 +119,8 @@ a {
 }
 
 #category-chooser {
-    margin-bottom: 50px;
-    margin-top: 25px;
+    margin-bottom: 15px;
+    margin-top:20px;
 }
 
 #category-chip:hover {

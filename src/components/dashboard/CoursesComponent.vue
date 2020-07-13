@@ -15,9 +15,9 @@
         <div class="center" v-show=" !status.error  && courses.length > 0"> 
             <div class="row">
                 <div v-for="course in courses" v-bind:key="course.id">
-                    <div class="center col s6 m6 l2">
+                    <div class="center col s6 m4 l2">
                         <a v-on:click="onCourseClick(course)">
-                            <img class="z-depth-2" id="course-image" width="180" height="150" v-bind:src="course.image_url" />
+                            <img class="z-depth-2" id="course-image" width="120" height="100" v-bind:src="course.image_url" />
                         </a>
                         <h6 class="center grey-text"> {{ course.course_name }} </h6>
                         <br />
@@ -60,7 +60,7 @@ export default {
                 order_by : 'course_name',
                 order_dir : 'asc',
                 offset : 0,
-                limit : 6
+                limit : 12
             },
             status : {
                 loading : true,
