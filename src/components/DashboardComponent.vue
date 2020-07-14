@@ -11,14 +11,29 @@
 
           <div v-else-if="content == 'class'" v-bind:key="'class'">
 
-            <TopMenuMenuComponent v-bind:hint_search="'Search Class....'"/>
+                <div class="container">
+                  <div class="icon-block ">
+                    <h2 class="center "><img src="construct.png" /></h2>
+                    <div class="row center">
+                        <h5 class="header col s12 light black-text">This feature currently under Construction, please be patient</h5>
+                    </div>
+                </div>
+              </div>
 
           </div>
           
           
           <div v-else-if="content == 'profile'" v-bind:key="'profile'">
-            <!--- profile content --->
-            <p>Profile</p>
+
+                <div class="container">
+                  <div class="icon-block ">
+                    <h2 class="center "><img src="construct.png" /></h2>
+                    <div class="row center">
+                        <h5 class="header col s12 light black-text">This feature currently under Construction, please be patient</h5>
+                    </div>
+                </div>
+              </div>
+              
           </div>
       </div>
 </template>

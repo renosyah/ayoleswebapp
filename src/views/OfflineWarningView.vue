@@ -40,6 +40,6 @@ export default {
   bottom: 0;
   z-index: 10;
   width: 100%;
-  font-size: 14px;
+  font-size: 24px;
 }
 </style>
