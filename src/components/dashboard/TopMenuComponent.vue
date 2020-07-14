@@ -119,7 +119,7 @@ a {
 }
 
 #category-chooser {
-    margin-bottom: 15px;
+    margin-bottom: 35px;
     margin-top:20px;
 }
 

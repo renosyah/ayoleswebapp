@@ -70,7 +70,6 @@ export default {
 
                     // dismiss loading
                     this.is_loading = false
-                    console.log(result)
 
                     this.$router.push({name: "Dashboard"})
 

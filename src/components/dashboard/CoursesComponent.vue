@@ -1,6 +1,6 @@
 <template>
     <div class="CoursesComponent">
-        <div v-show="status.error || !status.loading && courses.length == 0">
+        <div v-show="!status.error && !status.loading && courses.length == 0">
             <div class="container">
                 <div class="icon-block ">
                     <h2 class="center "><img src="notfound.png " /></h2>
@@ -11,8 +11,18 @@
             </div>
         </div>
 
+        <div v-show="status.error">
+            <div class="container">
+                <div class="icon-block ">
+                    <h2 class="center "><img src="error.png " /></h2>
+                    <div class="row center">
+                        <h5 class="header col s12 light black-text">Something Wrong Happend!</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <div class="center" v-show=" !status.error  && courses.length > 0"> 
+        <div class="center" v-show="!status.error && courses.length > 0"> 
             <div class="row">
                 <div v-for="course in courses" v-bind:key="course.id">
                     <div class="center col s6 m4 l2">

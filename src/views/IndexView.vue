@@ -22,7 +22,12 @@
 <script>
 
 export default {
-  name: 'Index'
+  name: 'Index',
+  created() {
+      if (localStorage.getItem('student_session')) {
+        window.location.href = "/dashboard"
+      }
+  }
 }
 </script>
 
