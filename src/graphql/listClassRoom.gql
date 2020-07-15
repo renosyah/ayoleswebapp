@@ -1,0 +1,23 @@
+query getClassRoom($student_id:String!,$search_by: String!,$search_value:String!,$order_by:String!,$order_dir:String!,$offset:Int!,$limit:Int!){
+		classroom_list(
+            student_id:$student_id,
+			search_by:$search_by,
+			search_value:$search_value,
+			order_by:$order_by,
+			order_dir:$order_dir,
+			offset:$offset,
+			limit:$limit
+		)
+		{
+			id,
+			course {
+				id,
+				course_name,
+				image_url,
+				teacher {id, name, email } ,
+				category {id, name, image_url},
+				course_details { id,course_id , overview_text, description_text,image_url }
+			},
+			student_id
+		 }
+}

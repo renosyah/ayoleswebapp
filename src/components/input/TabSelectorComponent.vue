@@ -1,5 +1,5 @@
 <template>
-    <div class="HeaderComponent">
+    <div class="TabSelectorComponent">
         <!-- Dropdown Structure -->
         <ul id="profile_dropdown" class="dropdown-content">
             <li><a class="black-text" href="/update_profile">Update Profile</a></li>
@@ -31,7 +31,7 @@
 <script>
 
 export default {
-  name: 'HeaderComponent',
+  name: 'TabSelectorComponent',
   props : {
       student : Object
   },

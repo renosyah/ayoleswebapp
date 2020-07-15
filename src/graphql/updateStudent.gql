@@ -1,0 +1,13 @@
+mutation studentUpdate($id:String!,$name:String!,$email: String!,$password: String!){
+		student_update(
+			id : $id,
+			name:$name,
+			email:$email,
+			password:$password
+		)
+		{
+			id,
+			name,
+			email
+		}
+}

@@ -12,7 +12,7 @@
         
         <div class="center">
                 <div class="preloader-wrapper small active" v-show="categories.length == 0">
-                    <div class="spinner-layer spinner-orange-only">
+                    <div class="spinner-layer spinner-blue-only">
                     <div class="circle-clipper left">
                         <div class="circle"></div>
                     </div><div class="gap-patch">

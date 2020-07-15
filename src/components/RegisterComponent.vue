@@ -1,26 +1,26 @@
 <template>
     <div class="RegisterComponent">
             <div class="container">
-            <div class="row center">
-                <div class="container col s3"></div>
-                <div class="container form col s12 m8 l6">
-                    <form class="register-form" @submit.prevent="doRegister">
-                    <div class="input-field">
-                        <label for="name" class="gray-text">Name</label>
-                        <input id="name" v-model="name" type="text" required/>
-                    </div>
-                    <div class="input-field">
-                        <label for="email" class="gray-text">Email</label>
-                        <input id="email" v-model="email" type="text" required/>
-                    </div>
-                    <div class="input-field white-text">
-                        <label for="password" class="gray-text">Password</label>
-                        <input id="password" v-model="password" type="password" required/>
-                    </div>
-                    <button type="submit" id="download-button" class="btn-large waves-effect waves-light green col s12">Apply</button>
-                    </form>
-                </div> 
-            </div>
+                <div class="row center">
+                    <div class="container col s3"></div>
+                    <div class="container form col s12 m8 l6">
+                        <form class="register-form" @submit.prevent="doRegister">
+                        <div class="input-field">
+                            <label for="name" class="gray-text">Name</label>
+                            <input id="name" v-model="student.name" type="text" required/>
+                        </div>
+                        <div class="input-field">
+                            <label for="email" class="gray-text">Email</label>
+                            <input id="email" v-model="student.email" type="text" required/>
+                        </div>
+                        <div class="input-field white-text">
+                            <label for="password" class="gray-text">Password</label>
+                            <input id="password" v-model="student.password" type="password" required/>
+                        </div>
+                        <button type="submit" id="download-button" class="btn-large waves-effect waves-light green col s12">Apply</button>
+                        </form>
+                    </div> 
+                </div>
              <div class="container col s3"></div>
         </div>
     </div>
@@ -31,9 +31,11 @@ export default {
     name : 'RegisterComponent',
     data(){
         return {
-            name : '',
-            email : '',
-            password : ''
+           student : {
+               name : '',
+               email : '',
+               password : '',
+           }
         }
     },
     methods : {
