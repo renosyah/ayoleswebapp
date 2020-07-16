@@ -60,7 +60,7 @@ export default {
             localStorage.setItem('status_install', parsed);
         },
         loadStatusInstalled(){
-            if (localStorage.getItem('status_install')) {
+            if (!localStorage.getItem('status_install')) {
                 this.show = true
             }
         }
