@@ -44,7 +44,7 @@ export default {
             this.deferredPrompt.prompt();
             this.deferredPrompt.userChoice.then((choiceResult) => {
                 if (choiceResult.outcome === 'accepted') {
-                    
+
                     console.log('User accepted the A2HS prompt');
                     this.saveStatusInstalled()
 
@@ -56,7 +56,7 @@ export default {
         },
         saveStatusInstalled(){
             this.status_install.installed = true
-            const parsed = JSON.stringify(status_install);
+            const parsed = JSON.stringify(this.status_install);
             localStorage.setItem('status_install', parsed);
         },
         loadStatusInstalled(){
