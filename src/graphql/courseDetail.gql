@@ -1,0 +1,13 @@
+query getCourseDetail($id:String!){
+    course_detail(
+        id: $id
+    )
+    {
+        id,
+        course_name,
+        image_url,
+        teacher { id, name, email } ,
+        category {id, name, image_url},
+        course_details { id,course_id , overview_text, description_text,image_url }
+    }
+}

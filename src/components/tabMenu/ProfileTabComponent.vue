@@ -8,12 +8,10 @@
                     <div class="container form col s12 m8 l6">
                         <form class="register-form" @submit.prevent="doUpdate">
                         <div class="input-field">
-                            <label for="name" class="gray-text">New Name</label>
-                            <input id="name" v-model="field.name" type="text" />
+                            <input id="name" v-model="field.name" type="text" placeholder="New Name" />
                         </div>
                         <div class="input-field">
-                            <label for="email" class="gray-text">New Email</label>
-                            <input id="email" v-model="field.email" type="text" />
+                            <input id="email" v-model="field.email" type="text" placeholder="New Email" />
                         </div>
                         <div class="input-field white-text">
                             <label for="password" class="gray-text">New Password</label>
@@ -24,17 +22,6 @@
                     </div> 
                 </div>
              <div class="container col s3"></div>
-        </div>
-        <div id="logout-button">
-            <div class="container">
-                <div class="row center">
-                    <div class="container col s3"></div>
-                    <div class="container form col s12 m8 l6">
-                        <button class="btn-large waves-effect waves-light red white-text col s12" v-on:click="doLogout">Logout</button>
-                    </div>
-                    <div class="container col s3"></div>
-                </div>          
-            </div>
         </div>
 
 
@@ -98,7 +85,8 @@ export default {
                 }).then(result => {
                     
                     // save data student
-                    localStorage.setItem('student_session', this.mutation);
+                    const parsed = JSON.stringify(this.mutation);
+                    localStorage.setItem('student_session',parsed);
 
                     // dismiss loading
                     this.is_loading = false
@@ -128,17 +116,16 @@ export default {
 
             this.field.name = this.student.name
             this.field.email = this.student.email
-        },
-        doLogout(){
-            localStorage.removeItem('student_session');
-            this.$router.push({name: "Login"})
-      },
+        }
     }
 }
 </script>
 
 <style scoped>
-#logout-button{
-    margin-top: 100px;
+
+#download-button {
+    text-transform: none;
+    font-size: 18px;
+    margin: 10px 0 0;
 }
 </style>

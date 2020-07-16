@@ -1,0 +1,12 @@
+mutation studentRegister($name:String!,$email: String!,$password: String!){
+		student_register(
+			name:$name,
+			email:$email,
+			password:$password
+		)
+		{
+			id,
+			name,
+			email
+		}
+}

@@ -1,17 +1,12 @@
 <template>
     <div class="TabSelectorComponent">
-        <!-- Dropdown Structure -->
-        <ul id="profile_dropdown" class="dropdown-content">
-            <li><a class="black-text" href="/update_profile">Update Profile</a></li>
-            <li><a class="black-text" href="/completed_course">Completed Course</a></li>
-            <li class="divider"></li>
-            <li><a class="red-text" v-on:click="doLogout">Logout</a></li>
-        </ul>
-        <nav id="navigation-header" class="navbar-fixed">
+        <nav id="navigation-header" class="navbar">
             <div class="nav-wrapper">
-                <a href="/dashboard" class="brand-logo center">Lets Course</a>
-                <ul class="right hide-on-med-and-down">
-                    <li><a class="dropdown-trigger" data-target="profile_dropdown">Login As {{ student.name }}<i class="material-icons right">arrow_drop_down</i></a></li>
+                <a class="brand-logo center">{{ title }}</a>
+                <ul id="nav-mobile" class="right">
+                    <li><a href="/completed_course"><i class="material-icons">assignment_turned_in</i></a></li>
+                    <li><a href="/update_profile" class="hide-on-med-and-down"><i class="material-icons">account_circle</i></a></li>
+                    <li><a v-on:click="doLogout" class="hide-on-med-and-down"> Logout </a></li>
                 </ul>
             </div>
         </nav>
@@ -19,9 +14,9 @@
             <div class="col m3 l3"></div>
             <div class="col s12 m6 l6">
             <ul class="tabs">
-                <li id="tab-home" class="tab col s3" v-on:click="doChangeTab('home')"><a>Home</a></li>
-                <li id="tab-class" class="tab col s3" v-on:click="doChangeTab('class')"><a>Class</a></li>
-                <li id="tab-profile" class="tab col s3" v-on:click="doChangeTab('profile')"><a>Profile</a></li>
+                <li id="tab-home" class="tab col s3" v-on:click="doChangeTab('home');title='Home'"><a>Home</a></li>
+                <li id="tab-class" class="tab col s3" v-on:click="doChangeTab('class');title='Class'"><a>Class</a></li>
+                <li id="tab-profile" class="tab col s3" v-on:click="doChangeTab('profile');title='Profile'"><a>Profile</a></li>
             </ul>
             </div>
             <div class="col m3 l3"></div>
@@ -35,8 +30,12 @@ export default {
   props : {
       student : Object
   },
+  data() { 
+      return {
+          title : 'Lets Course'
+      }
+  },
   mounted() {
-      window.$('.dropdown-trigger').dropdown()
       window.$('.tabs').tabs()
   },
   methods : {
@@ -89,5 +88,7 @@ li.tab {
 a {
     cursor: pointer;
 }
+
+
 
 </style>

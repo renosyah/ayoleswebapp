@@ -21,7 +21,7 @@ export default {
             this.$refs.courses_list.getCourseWithFilter(filter.category_id,filter.teacher_id,filter.search_value)
         },
         onCourseClick(course){
-            console.log(course)
+           this.$router.push({name: "CourseDetail", query : { id : course.id }})
         }
     }
 }

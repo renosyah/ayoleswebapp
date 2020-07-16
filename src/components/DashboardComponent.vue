@@ -5,7 +5,8 @@
         <HomeTabComponent v-show="content == 'home'" />
         <ClassTabComponent v-show="content == 'class'" />
         <ProfileTabComponent v-show="content == 'profile'" />
-        
+        <LogoutButtonComponent v-show="content == 'profile'" />
+
       </div>
 </template>
 <script>
@@ -14,6 +15,7 @@ import TabSelectorComponent from './input/TabSelectorComponent.vue'
 import HomeTabComponent from './tabMenu/HomeTabComponent.vue'
 import ClassTabComponent from './tabMenu/ClassTabComponent.vue'
 import ProfileTabComponent from './tabMenu/ProfileTabComponent.vue'
+import LogoutButtonComponent from './input/LogoutButtonComponent.vue'
 
 HomeTabComponent.vue
 export default {
@@ -22,7 +24,8 @@ export default {
       TabSelectorComponent,
       HomeTabComponent,
       ClassTabComponent,
-      ProfileTabComponent
+      ProfileTabComponent,
+      LogoutButtonComponent
   },
   data(){
       return {

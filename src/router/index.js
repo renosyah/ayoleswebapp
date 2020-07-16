@@ -4,8 +4,12 @@ import IndexView from '../views/IndexView.vue'
 import LoginView from '../views/LoginView.vue'
 import DashboardView from '../views/DashboardView.vue'
 import RegisterView from '../views/RegisterView.vue'
+import ProfileUpdateView from '../views/ProfileUpdateView.vue'
+import CompletedCourseView from '../views/CompletedCourseView.vue'
+import CourseDetailView from '../views/CourseDetailView.vue'
 import PageNotFound from '../views/PageNotFoundView.vue'
 import PageError from '../views/ErrorView.vue'
+
 
 Vue.use(VueRouter)
 
@@ -28,6 +32,21 @@ const routes = [{
         path: '/dashboard',
         name: 'Dashboard',
         component: DashboardView
+    },
+    {
+        path: '/update_profile',
+        name: 'ProfileUpdate',
+        component: ProfileUpdateView
+    },
+    {
+        path: '/completed_course',
+        name: 'CompletedCourse',
+        component: CompletedCourseView
+    },
+    {
+        path: '/course',
+        name: 'CourseDetail',
+        component: CourseDetailView
     },
     // add more router here
     {
