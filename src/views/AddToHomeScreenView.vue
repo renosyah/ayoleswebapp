@@ -23,15 +23,19 @@ export default {
     name : 'AddToHomeScreen',
     data(){
         return {
+            status_install : {
+                installed : false
+            },
             show : false,
             deferredPrompt : null
         }
     },
     created() {
+
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             this.deferredPrompt = e;
-            this.show = true
+            this.loadStatusInstalled()
         })
     },
     methods : {
@@ -40,12 +44,25 @@ export default {
             this.deferredPrompt.prompt();
             this.deferredPrompt.userChoice.then((choiceResult) => {
                 if (choiceResult.outcome === 'accepted') {
+                    
                     console.log('User accepted the A2HS prompt');
+                    this.saveStatusInstalled()
+
                 } else {
                     console.log('User dismissed the A2HS prompt');
                 }
                 this.deferredPrompt = null;
             });
+        },
+        saveStatusInstalled(){
+            this.status_install.installed = true
+            const parsed = JSON.stringify(status_install);
+            localStorage.setItem('status_install', parsed);
+        },
+        loadStatusInstalled(){
+            if (localStorage.getItem('status_install')) {
+                this.show = true
+            }
         }
     }
 }
