@@ -1,12 +1,13 @@
 <template>
     <div class="OfflineWarning">
         <transition name="bounce">
-            <div class="container center" v-if="!is_online">
+            <div class="container center" v-if="!is_online" v-on:click="is_online = true">
                 <div class="row">
                     <div class="col s12 m2"></div>
                     <div class="col s12 m8">
                         <div class="chip red white-text center">
-                            <span class="white-text">You are currently offline!</span>
+                            <span class="white-text">You are currently offline! 
+                            </span>
                         </div>
                     </div>
                     <div class="col s12 m2"></div>
@@ -40,7 +41,6 @@ export default {
   overflow: hidden;
   position: fixed;
   top: 0;
-  z-index: 10;
   width: 100%;
   font-size: 32px;
 }

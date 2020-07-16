@@ -4,7 +4,7 @@
             <div class="nav-wrapper">
             <a href="#" class="brand-logo center">Completed Course</a>
             <ul id="nav-mobile" class="left">
-                <li><a v-on:click="$router.go(-1)">Back</a></li>
+                <li><a v-on:click="$router.go(-1)"><i class="material-icons">arrow_back_ios</i></a></li>
             </ul>
             </div>
         </nav>

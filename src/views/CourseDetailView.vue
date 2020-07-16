@@ -4,21 +4,25 @@
             <div class="nav-wrapper">
                 <a class="brand-logo center">{{ course_detail.course_name }}</a>
                 <ul id="nav-mobile" class="left">
-                    <li><a v-on:click="$router.go(-1)">Back</a></li>
+                    <li><a v-on:click="$router.go(-1)"><i class="material-icons">arrow_back_ios</i></a></li>
                 </ul>
             </div>
         </nav>
         <div id="course-data" v-show="!is_loading && !is_error">
             <div class="row">
                 <div class="container center col s12 m6 l4">
-                    <img class="col s12" :src="course_detail.image_url" />
+                    <h5> </h5>
+                    <img id="image-course" class="col s12" :src="course_detail.image_url" />
                 </div>
                 <div class="container col s12 m6 l8"> 
-                    <h6 v-for="detail in course_detail.course_details" v-bind:key="detail.id">
-                        {{ detail.description_text }}
-                    </h6>
-                    <br />
-                    <button class="btn-large waves-effect waves-light green hide-on-small-only col s4 ">Enroll</button>
+                    <div id="text-description">
+                        <h5><b>{{ course_detail.course_name }}</b></h5>
+                        <p v-for="detail in course_detail.course_details" v-bind:key="detail.id">
+                            {{ detail.description_text }}
+                        </p>
+                        <br />
+                        <h6 id="teacher-name">By : {{ course_detail.teacher.name }}</h6>
+                    </div>
                 </div>
             </div>            
         </div>
@@ -32,16 +36,22 @@
                 </div>
             </div>
         </div>
-        <div class="container" v-show="!is_loading && !is_error">
+
+        <div v-if="is_loading"> <LoadingComponent /> </div>
+
+        <div  id="bottom-enroll-button" class="container" v-show="!is_loading && !is_error">
             <div class="row center">
-                <div class="container col s3"></div>
-                <div class="container form col s12 m8 l6">
-                    <button id="bottom-enroll-buttonn" class="btn-large waves-effect waves-light green col s12 hide-on-med-and-up">Enroll</button>
+                <div class="container col m3 l4"></div>
+                <div class="container form col s12 m6 l4">
+                    <div v-show="is_class_exist">
+                        <p><b>Student Already has Taken This class</b></p>
+                        <button class="btn-large waves-effect waves-light green col s12">Go To Class</button>
+                    </div>
+                    <button v-show="!is_class_exist" class="btn-large waves-effect waves-light green col s12">Enroll</button>
                 </div>
-                <div class="container col s3"></div>
+                <div class="container col  m3 l4"></div>
             </div>          
         </div>
-        <div v-if="is_loading"> <LoadingComponent /> </div>
     </div>
 </template>
 <script>
@@ -64,7 +74,8 @@ export default {
                 teacher :{id : '', name : '', email : '' } ,
                 category :{id : '', name : '', image_url : ''},
                 course_details : []
-            }
+            },
+            is_class_exist : false
         }
     },
     created() {
@@ -109,21 +120,25 @@ export default {
 #bottom-enroll-button {
     overflow: hidden;
     position: fixed;
+    background: #ffffff;
     bottom: 0;
     z-index: 10;
     width: 100%;
 }
+
+#text-description {
+    margin-bottom: 150px;
+}
+
+#image-course {
+    border-radius: 15px;
+}
+
 
 .CourseDetail {
   background: #ffffff; /* fallback for old browsers */
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  position:fixed;
-  width:100%;
-  height:100%;
-  top:0px;
-  left:0px;
-  z-index:-1;
 }
 </style>
