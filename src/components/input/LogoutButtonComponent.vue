@@ -18,9 +18,15 @@ export default {
     name : 'LogoutComponent',
     methods : {
         doLogout(){
-            localStorage.removeItem('student_session');
+            if (localStorage.getItem('student_session')){
+                localStorage.removeItem('student_session');
+            }
+            if (localStorage.getItem('status_install')){
+                localStorage.removeItem('status_install');
+            }
+
             this.$router.push({name: "Login"})
-      }
+        }
     }
 }
 </script>
