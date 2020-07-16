@@ -1,13 +1,14 @@
 <template>
-    <div class="AddToHomeScreen" v-show="show">
+    <div class="AddToHomeScreen">
         <transition name="bounce">
-            <div class="container center">
+            <div id="message-chip" class="container center" v-show="show">
                 <div class="row">
                     <div class="col s12 m2"></div>
                     <div class="col s12 m8">
                         <a v-on:click="addingToHomeScreen">
-                            <div class="chip center blue">
-                                <span class="white-text">Add to home screen</span>
+                            <div class="z-depth-2 chip center blue darken-3 white-text">
+                                Add to home screen
+                                <i v-on:click="saveStatusInstalled" class="close material-icons">close</i>
                             </div>
                         </a>
                     </div>
@@ -60,9 +61,7 @@ export default {
             localStorage.setItem('status_install', parsed);
         },
         loadStatusInstalled(){
-            if (!localStorage.getItem('status_install')) {
-                this.show = true
-            }
+            this.show = !localStorage.getItem('status_install')
         }
     }
 }
@@ -75,11 +74,14 @@ a {
 }
 
 .AddToHomeScreen {
-  overflow: hidden;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  font-size: 32px;
+    overflow: hidden;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+#message-chip{
+    margin-top: 20px
 }
 
 .bounce-enter-active {

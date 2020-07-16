@@ -5,6 +5,7 @@
         <ClassTabComponent v-show="content == 'class'" />
         <ProfileTabComponent v-show="content == 'profile'" />
         <LogoutButtonComponent v-show="content == 'profile'" />
+        <AddToHomeScreenView />
   </div>
 </template>
 <script>
@@ -14,15 +15,17 @@ import HomeTabComponent from '../components/tabMenu/HomeTabComponent.vue'
 import ClassTabComponent from '../components/tabMenu/ClassTabComponent.vue'
 import ProfileTabComponent from '../components/tabMenu/ProfileTabComponent.vue'
 import LogoutButtonComponent from '../components/input/LogoutButtonComponent.vue'
+import AddToHomeScreenView from './AddToHomeScreenView.vue'
 
 export default {
   name: 'Dashboard',
   components : {
-      TabSelectorComponent,
-      HomeTabComponent,
-      ClassTabComponent,
-      ProfileTabComponent,
-      LogoutButtonComponent
+    TabSelectorComponent,
+    HomeTabComponent,
+    ClassTabComponent,
+    ProfileTabComponent,
+    LogoutButtonComponent,
+    AddToHomeScreenView
   },
   data(){
       return {

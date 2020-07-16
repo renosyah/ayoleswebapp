@@ -57,6 +57,7 @@ export default {
 
 <style scoped>
 
+
 ul.tabs {
     background-color: #0D47A1; /* fallback for old browsers */
     display : flex;

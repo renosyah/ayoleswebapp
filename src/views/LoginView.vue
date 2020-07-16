@@ -1,10 +1,9 @@
 <template>
     <div class="Login">
-        <div class="container">
+        <div id="login-panel" class="container">
             <div class="row center">
                 <h5 class="white-text center">See What We Can Learn Today</h5>
             </div>
-        <br>
         <div class="row center">
             <div class="container col s3"></div>
             <div class="container form col s12 m8 l6">
@@ -95,16 +94,20 @@ export default {
 <style scoped>
 
 .Login {
-  background: #0D47A1; /* fallback for old browsers */
-  font-family: "Roboto", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  position:fixed;
-  width:100%;
-  height:100%;
-  top:0px;
-  left:0px;
-  z-index:-1;
+    background: #0D47A1; /* fallback for old browsers */
+    font-family: "Roboto", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0px;
+    left:0px;
+    z-index:-1;
+}
+
+#login-panel {
+    margin-top: 130px
 }
 
 a {

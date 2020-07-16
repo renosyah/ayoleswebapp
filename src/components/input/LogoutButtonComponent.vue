@@ -4,7 +4,7 @@
             <div class="row center">
                 <div class="container col s3"></div>
                 <div class="container form col s12 m8 l6">
-                <button id="logout-button" class="btn-large waves-effect waves-light red white-text col s12" v-on:click="doLogout">Logout</button>
+                <button id="logout-button" class="btn-large waves-effect waves-light grey white-text col s12" v-on:click="doLogout">Logout</button>
                 </div>
                 <div class="container col s3"></div>
         </div>          
