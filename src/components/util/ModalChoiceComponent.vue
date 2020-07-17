@@ -1,5 +1,5 @@
 <template>
-    <div class="ModalMessageComponent">
+    <div class="ModalChoiceComponent">
 
         <!---- each modal MUST have unique id html tag ---->
         <div v-bind:id="id" class="card modal">
@@ -8,7 +8,8 @@
             <p> {{ message }} </p>
             </div>
             <div class="center card-action modal-footer">
-            <a class="modal-close waves-effect waves-green btn-flat">Close</a>
+            <a v-on:click="onPositiveClick" class="waves-effect waves-green btn-flat"> {{ positive_button }} </a>
+            <a v-on:click="onNegativeClick" class="waves-effect waves-green btn-flat"> {{ negative_button }} </a>
             </div>
         </div>
     </div>
@@ -18,10 +19,12 @@
 import { uuid } from 'vue-uuid';
 
 export default {
-    name : 'ModalMessageComponent',
+    name : 'ModalChoiceComponent',
     props : {
         title : String,
-        message : String
+        message : String,
+        positive_button : String,
+        negative_button : String
     },
     data(){
         return {
@@ -33,9 +36,16 @@ export default {
     },
     methods : {
         showModal(){
-            window.$('#' + this.id).modal('open');
+            window.$('#' + this.id).modal('open')
         },
+        onPositiveClick(){
+            this.$emit('on-positive-click')
+            window.$('#' + this.id).modal('close')
+        },
+        onNegativeClick(){
+            this.$emit('on-negative-click')
+            window.$('#' + this.id).modal('close')
+        }
     }
 }
 </script>
-

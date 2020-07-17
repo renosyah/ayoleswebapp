@@ -24,8 +24,9 @@
         <p class="header center white-text"><a v-on:click="doResetPassword" class="header center white-text">Forgot Password?</a> </p>
         </div>
 
-        <ModalMessageComponent ref="error_modal" v-bind="{ title : 'Login Failed', message : 'Invalid email or password!' }"/>
+        <ModalMessageComponent ref="error_login_modal" v-bind="{ title : 'Login Failed', message : 'Invalid email or password!' }"/>
         <ModalMessageComponent ref="reset_password_modal" v-bind="{ title : 'Forgot Password',message : 'Unfortunately we cannot reset the password on your account, please create a new account!'}"/>
+        <ModalMessageComponent ref="error_modal" v-bind="{ title : 'Error',message : 'Something Wrong Happend!'}"/>
 
         <div v-if="is_loading"> <LoadingComponent /> </div>
     </div>
@@ -51,6 +52,11 @@ export default {
     methods : {
         doLogin(){
 
+            if (!navigator.onLine){
+                this.$refs.error_modal.showModal()
+                return
+            }
+
             this.is_loading = true
 
             // request api graphql with apolo
@@ -73,8 +79,8 @@ export default {
 
                 }).catch(error => {
 
-                    // show modal reset password
-                    this.$refs.error_modal.showModal()
+                    // show error login
+                    this.$refs.error_login_modal.showModal()
 
                     // dismiss loading
                     this.is_loading = false

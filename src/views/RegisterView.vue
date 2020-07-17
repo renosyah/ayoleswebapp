@@ -36,6 +36,9 @@
 
 
         <ModalMessageComponent ref="register_modal" v-bind="{ title : 'Fail Register Profile',message : 'Unfortunately we cannot adding your account right now, please try again latter!'}"/>
+        <ModalMessageComponent ref="error_modal" v-bind="{ title : 'Error',message : 'Something Wrong Happend!'}"/>
+
+
         <div v-if="is_loading"> <LoadingComponent /> </div>
     </div>
 </template>
@@ -67,6 +70,11 @@ export default {
     methods : {
         doRegister(){
 
+            if (!navigator.onLine){
+                this.$refs.error_modal.showModal()
+                return
+            }
+            
             this.is_loading = true
 
             this.mutation.name = this.field.name 

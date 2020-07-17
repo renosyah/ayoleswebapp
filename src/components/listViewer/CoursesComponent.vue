@@ -25,12 +25,20 @@
         <div class="center" v-show="!status.error && courses.length > 0"> 
             <div class="row">
                 <div v-for="course in courses" v-bind:key="course.id">
-                    <div class="center col s6 m4 l2">
-                        <a v-on:click="onCourseClick(course)">
-                            <img class="z-depth-2" id="course-image" width="120" height="100" v-bind:src="course.image_url" />
-                        </a>
-                        <h6 class="center grey-text"> {{ course.course_name }} </h6>
-                        <br />
+                    <div class="col s6 m4 l2">
+                        <div class="card">
+                            <div class="card-image">
+                                <a v-on:click="onCourseClick(course)">
+                                    <img :src="course.image_url" width="100" height="100">
+                                </a>
+                                <a v-on:click="onSelectCourse(course)" class="btn-floating halfway-fab waves-effect waves-light green"><i class="material-icons">add</i></a>
+                            </div>
+                            <div class="card-content">
+                                <p>
+                                    <a v-on:click="onCourseClick(course)" class="black-text">{{ course.course_name }}</a>
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -53,12 +61,31 @@
                 </div>
             </div>
         </div>
+
+        <ModalChoiceComponent
+            ref="modal_selected_course"
+            v-bind="{
+                title : 'Add ' + selected_course.course_name,
+                message : 'are you sure want to enroll ' + selected_course.course_name + ',this course will be added to your classroom list',
+                positive_button : 'Enroll',
+                negative_button : 'Cancel',
+            }"
+            v-on:on-positive-click="onEnrollCourse(selected_course)"
+        />
+
     </div>
 </template>
 
 <script>
+
+
+import ModalChoiceComponent from '../util/ModalChoiceComponent.vue'
+
 export default {
     name : 'CoursesComponent',
+    components:{
+        ModalChoiceComponent,
+    },
     data() {
         return {
             courses : [],
@@ -76,6 +103,10 @@ export default {
                 loading : true,
                 error : false
             },
+            selected_course : {
+                id : '',
+                course_name : ''
+            },
             scrolled_to_bottom: false
         }
     },
@@ -92,6 +123,14 @@ export default {
         this.scroll()
     },
     methods : {
+        onSelectCourse(course){
+            this.selected_course.id = course.id
+            this.selected_course.course_name = course.course_name
+            this.$refs.modal_selected_course.showModal()
+        },
+        onEnrollCourse(selected_course){
+            console.log(selected_course)
+        },
         onCourseClick(course){
             this.$emit('on-course-click',course)
         },
