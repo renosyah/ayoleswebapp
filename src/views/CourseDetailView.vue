@@ -47,7 +47,7 @@
                         <p><b>Student Already has Taken This class</b></p>
                         <button class="btn-large waves-effect waves-light green col s12">Go To Class</button>
                     </div>
-                    <button v-show="!is_class_exist" class="btn-large waves-effect waves-light green col s12">Enroll</button>
+                    <button v-show="!is_class_exist" v-on:click="onEnrollCourse" class="btn-large waves-effect waves-light green col s12">Enroll</button>
                 </div>
                 <div class="container col  m3 l4"></div>
             </div>          
@@ -81,8 +81,42 @@ export default {
     created() {
         this.course_detail.id = this.$route.query.id
         this.getCourseDetail()
+        this.checkIsClassIsExist()
     },
     methods : {
+        getStudentId(){
+            let student = { 
+                id : ''
+            }
+            if (localStorage.getItem('student_session')) {
+                try {
+                    student = JSON.parse(localStorage.getItem('student_session'));
+                } catch(e) {
+                    console.log(e)
+                }
+            }
+            return student.id
+        },
+        checkIsClassIsExist(){
+
+            this.$apollo.query({
+                query : require('../graphql/detailClassRoomById.gql'),
+                variables : {
+                    course_id : this.course_detail.id,
+                    student_id : this.getStudentId()
+                }
+                }).then(result => {
+                    
+                    if (result.data.classroom_detail_by_id.id){
+                        this.is_class_exist = true
+                    }
+
+                }).catch(error => { console.log(error) })
+
+        },
+        onEnrollCourse(){
+            // add course to classroom
+        },
         getCourseDetail(){
 
             this.is_loading = true

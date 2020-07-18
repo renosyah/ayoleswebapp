@@ -42,7 +42,7 @@ export default {
             this.$refs.classroom.getClassRoomBySearch(filter.search_value)
         },
         onClassRoomClick(classroom){
-            console.log(classroom)
+            this.$router.push({name: "ClassRoom", query : { id : classroom.id }})
         }
     }
 }

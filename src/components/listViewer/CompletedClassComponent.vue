@@ -1,6 +1,6 @@
 <template>
-    <div class="ClassRoomComponent">
-        <div v-show="!status.error && !status.loading && classrooms.length == 0">
+    <div class="CompletedClassComponent">
+        <div v-show="!status.error && !status.loading && classrooms_cert.length == 0">
             <div class="container">
                 <div class="icon-block ">
                     <h2 class="center "><img src="notfound.png " /></h2>
@@ -22,20 +22,44 @@
             </div>
         </div>
 
-        <div class="center" v-show="!status.error && classrooms.length > 0"> 
+        <div class="center" v-show="!status.error && classrooms_cert.length > 0"> 
             <div class="row">
-                <div v-for="c in classrooms" v-bind:key="c.id">
+                <div v-for="c in classrooms_cert" v-bind:key="c.id">
                     <div class="col s12 m6 l4">
-                        <a v-on:click="onClassroomsClick(c)">
-                            <div class="card">
-                                <div class="card-image">
-                                    <img width="120" height="220" :src="c.course.image_url">
-                                </div>
-                                <div class="card-content">
-                                    <h6 class="black-text">{{ c.course.course_name }}</h6>
-                                </div>
-                            </div>
-                        </a>
+
+                            <!-- apollo query on HTML -->
+                            <ApolloQuery :query="require('../../graphql/detailClassRoom.gql')" :variables="{ id : c.classroom_id }">
+                                <template v-slot="{ result: { loading, error, data } }">
+
+                                    <!-- Loading -->
+                                    <div v-if="loading" class="loading apollo">Loading...</div>
+
+                                    <!-- Error -->
+                                    <div v-else-if="error" class="error apollo">An error occurred</div>
+
+                                    <!-- Result -->
+                                    <div v-else-if="data" class="result apollo">
+
+                                        <div class="card">
+                                            <div class="card-image">
+                                                <img width="120" height="220" :src="data.classroom_detail.course.image_url">
+                                            </div>
+                                            <div class="card-content">
+                                                <h6 class="black-text">{{ data.classroom_detail.course.course_name }}</h6>
+                                            </div>
+                                            <div class="card-action">
+                                                <a v-on:click="onClassroomsCertClick(c)" class="green-text">Result</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- No result -->
+                                    <div v-else class="no-result apollo"> </div>
+
+                                </template>
+
+                            </ApolloQuery>
+
                     </div>
                 </div>
             </div>
@@ -64,19 +88,17 @@
 <script>
 
 export default {
-    name : 'ClassRoomComponent',
+    name : 'CompletedClassComponent',
     props : {
         student_id : String
     },
     data() {
         return {
-            classrooms : [],
+            classrooms_cert : [],
             query : {
                 student_id : this.$props.student_id,
-                search_by:'course.category_id::TEXT',
-                search_value: '',
-                order_by:"classroom.create_at",
-                order_dir: 'asc',
+                order_by:'create_at',
+                order_dir:'asc',
                 offset:0,
                 limit:10
             },
@@ -90,39 +112,26 @@ export default {
     watch : {
         scrolled_to_bottom : function(){
             this.query.offset += this.query.limit 
-            this.getClassroomsList()
+            this.getClassroomsCertList()
         }
     },
     created(){
-        this.getClassroomsList()
+        this.getClassroomsCertList()
     },
     mounted(){
         this.scroll()
     },
     methods : {
-        onClassroomsClick(class_data){
-            this.$emit('on-class-click',class_data)
+        onClassroomsCertClick(class_cert){
+            this.$emit('on-class-cert-click',class_cert)
         },
         scroll () {
             window.onscroll = () => {
                 this.scrolled_to_bottom = this.classrooms.length > 0 && Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) + window.innerHeight === document.documentElement.offsetHeight
             }
         },
-        getClassRoomBySearch(search_value){
-            this.classrooms = []
-            this.query.search_by = 'course.course_name'
-            this.query.search_value = search_value
-            this.query.offset = 0
-            this.getClassroomsList()
-        },
-        getClassRoomByCategory(search_value){
-            this.classrooms = []
-            this.query.search_by = 'course.category_id::TEXT'
-            this.query.search_value = search_value
-            this.query.offset = 0
-            this.getClassroomsList()
-        },
-        getClassroomsList(){
+
+        getClassroomsCertList(){
 
             // disable loading if offset is not 0
             // because use want other data
@@ -131,13 +140,13 @@ export default {
             this.status.error = false
 
             this.$apollo.query({
-                query : require('../../graphql/listClassRoom.gql'),
+                query : require('../../graphql/listClassRoomCert.gql'),
                 variables : this.query
                 }).then(result => {
                     
                     // load other result if offset not 0
                     // and new if offset is 0
-                    this.classrooms = this.query.offset > 0 ? this.classrooms.concat(result.data.classroom_list) : result.data.classroom_list
+                    this.classrooms_cert = this.query.offset > 0 ? this.classrooms_cert.concat(result.data.classroom_certificate_list) : result.data.classroom_certificate_list
                     this.status.loading = false
 
                 }).catch(error => {
@@ -167,7 +176,7 @@ a {
     border-radius: 25px;
 }
 
-.ClassRoomComponent{
+.CompletedClassComponent{
     margin-right: 15px;
     margin-left: 15px;
 }

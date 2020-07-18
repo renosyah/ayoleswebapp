@@ -25,18 +25,18 @@
         <div class="center" v-show="!status.error && courses.length > 0"> 
             <div class="row">
                 <div v-for="course in courses" v-bind:key="course.id">
-                    <div class="col s6 m4 l2">
+                    <div class="col s12 m6 l4">
                         <div class="card">
                             <div class="card-image">
                                 <a v-on:click="onCourseClick(course)">
-                                    <img :src="course.image_url" width="100" height="100">
+                                    <img width="120" height="220" :src="course.image_url">
                                 </a>
                                 <a v-on:click="onSelectCourse(course)" class="btn-floating halfway-fab waves-effect waves-light green"><i class="material-icons">add</i></a>
                             </div>
                             <div class="card-content">
-                                <p>
-                                    <a v-on:click="onCourseClick(course)" class="black-text">{{ course.course_name }}</a>
-                                </p>
+                                <a v-on:click="onCourseClick(course)">
+                                    <h6 class="black-text">{{ course.course_name }}</h6>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -70,8 +70,10 @@
                 positive_button : 'Enroll',
                 negative_button : 'Cancel',
             }"
-            v-on:on-positive-click="onEnrollCourse(selected_course)"
+            v-on:on-positive-click="checkIsClassIsExist(selected_course)"
         />
+
+        <ModalMessageComponent ref="modal_selected_course_already_added" v-bind="{ title : 'Atention',message : 'the Course you have chosen is already in the class'}"/>
 
     </div>
 </template>
@@ -80,11 +82,16 @@
 
 
 import ModalChoiceComponent from '../util/ModalChoiceComponent.vue'
+import ModalMessageComponent from '../util/ModalMessageComponent.vue'
 
 export default {
     name : 'CoursesComponent',
     components:{
         ModalChoiceComponent,
+        ModalMessageComponent
+    },
+    props : {
+        student_id :String
     },
     data() {
         return {
@@ -97,7 +104,7 @@ export default {
                 order_by : 'course_name',
                 order_dir : 'asc',
                 offset : 0,
-                limit : 12
+                limit : 10
             },
             status : {
                 loading : true,
@@ -128,8 +135,25 @@ export default {
             this.selected_course.course_name = course.course_name
             this.$refs.modal_selected_course.showModal()
         },
-        onEnrollCourse(selected_course){
-            console.log(selected_course)
+        checkIsClassIsExist(selected_course){
+            this.$apollo.query({
+                query : require('../../graphql/detailClassRoomById.gql'),
+                variables : {
+                    course_id : selected_course.id,
+                    student_id : this.$props.student_id
+                }
+                }).then(result => {
+
+                    if (result.data.classroom_detail_by_id.id){
+                        this.$refs.modal_selected_course_already_added.showModal()
+                        return
+                    }
+                    this.onEnrollCourse()
+
+                }).catch(error => { console.log(error) })
+        },
+        onEnrollCourse(){
+            // add course to classroom
         },
         onCourseClick(course){
             this.$emit('on-course-click',course)
@@ -173,7 +197,7 @@ export default {
 
                 })
 
-    },
+        }
     }
 }
 </script>

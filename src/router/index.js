@@ -7,6 +7,7 @@ import RegisterView from '../views/RegisterView.vue'
 import ProfileUpdateView from '../views/ProfileUpdateView.vue'
 import CompletedCourseView from '../views/CompletedCourseView.vue'
 import CourseDetailView from '../views/CourseDetailView.vue'
+import ClassRoomView from '../views/ClassRoomView.vue'
 import PageNotFound from '../views/PageNotFoundView.vue'
 import PageError from '../views/ErrorView.vue'
 
@@ -47,6 +48,11 @@ const routes = [{
         path: '/course',
         name: 'CourseDetail',
         component: CourseDetailView
+    },
+    {
+        path: '/classroom',
+        name: 'ClassRoom',
+        component: ClassRoomView
     },
     // add more router here
     {

@@ -1,0 +1,18 @@
+query getDetailClassRoomById($course_id:String!,$student_id:String!){
+		classroom_detail_by_id (
+			course_id : $course_id,
+			student_id : $student_id
+		)
+		{
+			id,
+			course {
+				id,
+				course_name,
+				image_url,
+				teacher {id, name, email } ,
+				category {id, name, image_url},
+				course_details { id,course_id , overview_text, description_text,image_url }
+			},
+			student_id
+		}
+	}

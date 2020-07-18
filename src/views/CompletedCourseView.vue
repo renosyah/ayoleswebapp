@@ -8,15 +8,41 @@
             </ul>
             </div>
         </nav>
+        <br /><br />
+        <CompletedClassComponent v-bind:student_id="loadSession.id" v-on:on-class-cert-click="onCompletedClassRoomClick" />
     </div>
 </template>
 <script>
 
+import CompletedClassComponent from '../components/listViewer/CompletedClassComponent.vue';
 
 export default {
     name : 'CompletedCourse',
     components : {
-      
+        CompletedClassComponent
+    },    
+    computed : {
+        loadSession(){
+            let data = {
+                id : '',
+                name : '',
+                email : ''
+            }
+            if (localStorage.getItem('student_session')) {
+                try {
+                   data = JSON.parse(localStorage.getItem('student_session'));
+                } catch(e) {
+                    console.log(e)
+                }
+            }
+
+            return data
+        }
+    },
+    methods : {
+        onCompletedClassRoomClick(classroom_completed){
+            console.log(classroom_completed)
+        }
     }
 }
 </script>
@@ -30,7 +56,6 @@ export default {
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  position:fixed;
   width:100%;
   height:100%;
   top:0px;

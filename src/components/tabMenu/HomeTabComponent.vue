@@ -1,7 +1,7 @@
 <template>
     <div class="homeTab">
         <TopMenuMenuComponent v-bind:hint_search="'Search Course....'" v-on:on-category-click="filterCourse"  v-on:on-search-typing="filterCourse" />
-        <CoursesComponent ref="courses_list" v-on:on-course-click="onCourseClick"/>
+        <CoursesComponent ref="courses_list" v-bind:student_id="loadSession.id" v-on:on-course-click="onCourseClick"/>
     </div>
 </template>
 
@@ -15,6 +15,24 @@ export default {
     components : {
         TopMenuMenuComponent,
         CoursesComponent
+    },
+    computed : {
+        loadSession(){
+            let data = {
+                id : '',
+                name : '',
+                email : ''
+            }
+            if (localStorage.getItem('student_session')) {
+                try {
+                   data = JSON.parse(localStorage.getItem('student_session'));
+                } catch(e) {
+                    console.log(e)
+                }
+            }
+
+            return data
+        }
     },
     methods : {
         filterCourse(filter){

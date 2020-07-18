@@ -1,0 +1,14 @@
+query getClassRoomCert($student_id:String!,$order_by:String!,$order_dir:String!,$offset:Int!,$limit:Int!){
+    classroom_certificate_list(
+        student_id:$student_id,
+        order_by:$order_by,
+        order_dir:$order_dir,
+        offset:$offset,
+        limit:$limit
+    )
+    {
+        id,
+        classroom_id,
+        hash_id
+    }
+}
